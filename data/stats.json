@@ -1,6 +1,9 @@
 {
+	"cpu": {
+		"usage": 0.33
+	},
 	"ram": {
 		"total": 15941,
-		"available": 15167
+		"available": 15172
 	}
 }
