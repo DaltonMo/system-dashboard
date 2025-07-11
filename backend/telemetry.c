@@ -24,12 +24,35 @@ void read_memory(long *total, long *available) {
   fclose(fp);
 }
 
+void write_json(long total, long available) {
+  FILE *fp = fopen("../data/stats.json", "w");
+  if (fp == NULL) {
+    perror("Failed to open stats.json for writing");
+    exit(1);
+  }
+
+  fprintf(fp,
+      "{\n"
+      "\t\"ram\": {\n"
+      "\t\t\"total\": %ld,\n"
+      "\t\t\"available\": %ld\n"
+      "\t}\n"
+      "}\n",
+      total, available
+  );
+
+  fclose(fp);
+}
+
 int main() {
   long memTotal = 0, memAvailable = 0;
   read_memory(&memTotal, &memAvailable);
+  write_json(memTotal, memAvailable);
 
   printf("Total RAM: %ld MB\n", memTotal);
   printf("Available RAM: %ld MB\n", memAvailable);
+
+  printf("Wrote RAM stats to data.json!\n");
 
   return 0;
 }
